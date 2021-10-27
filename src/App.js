@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    fetch("/api/getUsername")
+      .then((res) => res.json())
+      .then((user) => setUsername(user.username));
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1 className="App-title">Welcome to React</h1>
       </header>
+      <p className="App-intro">
+        To get started, edit <code>src/App.js</code> and save to reload.
+      </p>
+      <div>
+        {username ? (
+          <h1>{`Hello ${username}`}</h1>
+        ) : (
+          <h1>Loading.. please wait!</h1>
+        )}
+      </div>
     </div>
   );
 }
