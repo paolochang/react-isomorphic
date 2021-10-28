@@ -8,7 +8,10 @@ function App() {
   useEffect(() => {
     fetch("/api/getUsername")
       .then((res) => res.json())
-      .then((user) => setUsername(user.username));
+      .then((user) => {
+        console.log(user);
+        setUsername(user.username);
+      });
   }, []);
 
   return (
